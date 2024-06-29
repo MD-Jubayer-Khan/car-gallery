@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="card bg-dark text-white">
+        <img class="w-100 h-50" src="{% static 'carHero.png' %}" alt="Home Image">
+    <div class="card-img-overlay mt-5">
+        <h1 class="text-center mt-5">Welcome to Car Gallery</h1>
+        <p class="lead mb-4 text-center w-50 mx-auto">Your one-stop destination for the finest selection of cars. where we bring you a comprehensive car-buying experience. Explore our vast collection of cars from top brands, read detailed reviews, and find the perfect vehicle that suits your style and needs. Start your journey with us today</p>
+    </div>
+  </div>
+
+
+
+
+    {% for brand in brands %}
+        <a href="{% url 'home_by_brand' brand.slug %}">
+            <button class="btn btn-secondary p-2 m-2 ms-4 my-4" style="width: 280px;">{{ brand.name }}</button>
+        </a>
+    {% endfor %}
+
+    
+
+<h3 class="ms-5">Total Car Found: {{cars|length}}</h3>
+
+<div class="row mx-5">
+    {% for car in cars %}
+    <div class="card col-3 gap-4 my-4">
+        <img src="{{ car.image.url }}" alt="{{ car.title }}"  style="height: 200px;">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.title }}</h5>
+          <p class="card-text">Price: ${{ car.price }}</p>
+          <p class="card-text">Brand: {{car.brand}}</p>
+          <a href="{% url 'car_detail' car.id %}"> 
+            <button class="btn btn-warning"> View Details </button> 
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
